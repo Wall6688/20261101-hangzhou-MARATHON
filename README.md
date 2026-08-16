@@ -1,6 +1,6 @@
 # 杭州马拉松 · Sub4 打卡
 
-个人使用的 11 周马拉松备赛应用。静态前端发布到 GitHub Pages；Node API 通过 Docker 运行在服务器 6000 端口；训练计划与打卡结果保存到 Notion。
+个人使用的 11 周马拉松备赛应用。前端和 Node API 通过同一个 Docker 容器运行在服务器 6000 端口；训练计划与打卡结果保存到 Notion。
 
 ## 本地启动
 
@@ -9,13 +9,9 @@
 3. 启动：`docker compose up -d --build`
 4. 打开 `http://localhost:6000`，健康检查为 `/api/health`。
 
-## GitHub Pages
+## 服务器访问
 
-仓库 Settings → Pages → Source 选择 **GitHub Actions**，并新增 Actions Secret：
-
-- `API_BASE_URL`：公网可访问的后端 HTTPS 地址，例如 `https://run-api.example.com`。
-
-GitHub Pages 是 HTTPS 页面，浏览器会阻止它调用纯 HTTP API，因此生产环境需要给后端配置 HTTPS 反向代理。后端 CORS 的 `ALLOWED_ORIGINS` 应包含 `https://wall6688.github.io`。
+部署后直接打开 `http://服务器地址:6000`。前端与 API 同源，不需要额外的反向代理、HTTPS 证书或跨域配置。
 
 ## Notion 数据模型
 
