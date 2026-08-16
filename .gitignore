@@ -1,5 +1,6 @@
 .env
 node_modules/
 .pnpm-store/
+.ssh-askpass.cmd
 npm-debug.log*
 .DS_Store
