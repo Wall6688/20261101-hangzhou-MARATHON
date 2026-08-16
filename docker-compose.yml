@@ -5,5 +5,4 @@ services:
     restart: unless-stopped
     env_file: .env
     ports:
-      - "${server_port:-6000}:6000"
-
+      - "${PUBLIC_PORT:-6080}:6000"
