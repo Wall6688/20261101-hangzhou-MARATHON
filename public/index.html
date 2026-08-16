@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#071d1a">
+  <title>杭马 · 破四计划</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <header class="hero">
+      <div><span class="eyebrow">2026 · HANGZHOU</span><h1>十一周，<em>跑进四小时。</em></h1></div>
+      <div class="race-count"><strong id="countdown">—</strong><span>距离比赛日</span></div>
+    </header>
+    <section class="stats" aria-label="训练概览">
+      <article><span>完成率</span><strong id="completion">—</strong><small id="done-count">正在读取</small></article>
+      <article><span>本周</span><strong id="week-progress">—</strong><small id="week-label">训练进度</small></article>
+      <article><span>累计跑量</span><strong id="mileage">—</strong><small>实际 / 计划公里</small></article>
+      <article class="goal"><span>目标</span><strong>3:59</strong><small>比赛配速 5'41/km</small></article>
+    </section>
+    <section class="today" id="today-card"><div class="loading">正在连接训练数据库…</div></section>
+    <nav class="filters" aria-label="周次筛选"><button class="active" data-week="all">全部</button><div id="week-buttons"></div></nav>
+    <section class="timeline" id="timeline"></section>
+  </main>
+  <dialog id="checkin-dialog">
+    <form method="dialog" id="checkin-form">
+      <button class="close" value="cancel" aria-label="关闭">×</button>
+      <span class="eyebrow">TRAINING LOG</span><h2 id="dialog-title">训练打卡</h2>
+      <input type="hidden" id="workout-id">
+      <div class="form-grid">
+        <label>实际公里<input id="actual-km" type="number" min="0" max="100" step="0.01"></label>
+        <label>用时（分钟）<input id="duration" type="number" min="0" max="1440" step="1"></label>
+        <label>平均配速<input id="pace" placeholder="例如 6'18\&quot;"></label>
+        <label>平均心率<input id="heart-rate" type="number" min="0" max="250"></label>
+        <label>体感 RPE（1–10）<input id="rpe" type="number" min="1" max="10"></label>
+        <label class="wide">备注<textarea id="note" rows="3" placeholder="身体感受、补给、天气…"></textarea></label>
+      </div>
+      <label class="complete"><input id="completed" type="checkbox"> 我已严格完成本次训练</label>
+      <button class="save" id="save-button" value="default">保存到 Notion</button>
+    </form>
+  </dialog>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="config.js"></script><script src="app.js"></script>
+</body>
+</html>
+

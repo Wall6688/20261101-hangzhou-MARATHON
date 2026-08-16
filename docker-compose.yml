@@ -1,0 +1,9 @@
+services:
+  marathon-app:
+    build: .
+    container_name: hangzhou-marathon
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "${server_port:-6000}:6000"
+
