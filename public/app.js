@@ -40,11 +40,10 @@ function openCheckin(id){
 document.addEventListener('click',e=>{ const id=e.target.closest('[data-checkin]')?.dataset.checkin; if(id)openCheckin(id); const week=e.target.closest('[data-week]'); if(week){document.querySelectorAll('[data-week]').forEach(x=>x.classList.remove('active'));week.classList.add('active');selectedWeek=week.dataset.week;renderTimeline();}});
 $('#checkin-form').addEventListener('submit',async e=>{
   e.preventDefault(); const button=$('#save-button'); button.disabled=true; button.textContent='保存中…';
-  try{const id=$('#workout-id').value;const response=await fetch(`${API}/api/workouts/${id}`,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({actualKm:$('#actual-km').value,durationMinutes:$('#duration').value,pace:$('#pace').value,heartRate:$('#heart-rate').value,rpe:$('#rpe').value,note:$('#note').value,completed:$('#completed').checked})});const data=await response.json();if(!response.ok)throw new Error(data.error||'保存失败');workouts=workouts.map(w=>w.id===id?data:w);render();$('#checkin-dialog').close();toast('已同步到 Notion');}catch(error){toast(error.message)}finally{button.disabled=false;button.textContent='保存到 Notion';}
+  try{const id=$('#workout-id').value;const response=await fetch(`${API}/api/workouts/${id}`,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({actualKm:$('#actual-km').value,durationMinutes:$('#duration').value,pace:$('#pace').value,heartRate:$('#heart-rate').value,rpe:$('#rpe').value,note:$('#note').value,completed:$('#completed').checked})});const data=await response.json();if(!response.ok)throw new Error(data.error||'保存失败');workouts=workouts.map(w=>w.id===id?data:w);render();$('#checkin-dialog').close();toast(data.syncStatus==='pending'?'已保存，等待同步 Notion':'已同步到 Notion');}catch(error){toast(error.message)}finally{button.disabled=false;button.textContent='保存到 Notion';}
 });
 async function boot(){
   $('#countdown').textContent=`${Math.max(0,Math.ceil((raceDay-new Date())/86400000))} 天`;
   try{const response=await fetch(`${API}/api/workouts`);const data=await response.json();if(!response.ok)throw new Error(data.error||'读取失败');workouts=data;$('#week-buttons').innerHTML=[...new Set(workouts.map(w=>w.week))].map(w=>`<button data-week="${w}">W${w}</button>`).join('');render();}catch(error){$('#today-card').innerHTML=`<div class="empty"><strong>暂时无法读取训练数据库</strong><p>${error.message}</p><p>请确认后端地址与 NOTION_TOKEN 已配置。</p></div>`;}
 }
 boot();
-

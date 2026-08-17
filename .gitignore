@@ -3,6 +3,8 @@ node_modules/
 .pnpm-store/
 .ssh-askpass.cmd
 data/*.json
+data/*.sqlite
+data/*.sqlite-*
 data/*.tmp
 npm-debug.log*
 .DS_Store
