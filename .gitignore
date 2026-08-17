@@ -2,5 +2,7 @@
 node_modules/
 .pnpm-store/
 .ssh-askpass.cmd
+data/*.json
+data/*.tmp
 npm-debug.log*
 .DS_Store

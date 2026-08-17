@@ -6,3 +6,5 @@ services:
     env_file: .env
     ports:
       - "${PUBLIC_PORT:-6080}:6000"
+    volumes:
+      - ./data:/app/data
